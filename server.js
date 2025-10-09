@@ -2,53 +2,31 @@ const http = require('http');
 const fs = require('fs');
 
 const server = http.createServer((req,res)=>{
-  console.log(req.url,req.method);
+    res.setHeader('Content-Type','text/html');
 
-  //set header content type
-  res.setHeader('Content-Type','text/html');
+    let path = './views/';
 
-  let path = './views/';
-  switch (req.url) {
-    case '/':
+    if(req.url == '/'){
       path += 'index.html';
       res.statusCode = 200;
-      break;
-  
-    case '/about':
-      path += 'about.html';
-      res.statusCode = 200;
-      break;
-
-    case '/about-me':
-      res.statusCode = 301;
-      res.setHeader('Location','/about');
-      res.end();
-      break;
-
-    default:
-      path += '404.html';
-      res.statusCode = 404;
-      break;
-  }
-
-  //send an HTML file
-  fs.readFile(path,(err,data)=>{
-    if(err){
-      console.log(err);
-      res.end();
     }else{
-      res.write(data);
-      res.end();
+      path += 'error.html';
+      res.statusCode = 404;
     }
-  });
 
-  
-});
+    fs.readFile(path,(error,data)=>{
+        
+        if(error){
+          console.log(error);
+          res.statusCode = 500;
+          res.end(`<h1>Server Error</h1>`);
+        }else{
+          res.write(data);
+          res.end();
+        }
+    });
+})
 
 server.listen(3000,'localhost',()=>{
-  console.log('Listening for request on port 3000');
-});
-
-//local host
-//Port number 
-//domain name
+  console.log('Server is running on port 3000');
+})
