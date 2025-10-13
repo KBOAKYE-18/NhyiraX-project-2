@@ -1,16 +1,17 @@
 const http = require('http');
 const fs = require('fs');
+const path = require ('path');
 
 const server = http.createServer((req,res)=>{
     res.setHeader('Content-Type','text/html');
 
-    let path = './views/';
+    let filepath = ' ';
 
     if(req.url == '/'){
-      path += 'index.html';
+      filepath = path.resolve(__dirname,'views','index.html');
       res.statusCode = 200;
     }else{
-      path += 'error.html';
+      filepath = path.resolve(__dirname,'views','error.html');
       res.statusCode = 404;
     }
 
