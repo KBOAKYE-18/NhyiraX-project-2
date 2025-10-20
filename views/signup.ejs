@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head') %>
+<body>
+    <header>
+        <h1>Welcome to PhotoVault 📸</h1>
+        <p>Capture, store, and share your favorite moments securely.  
+         Sign up to start uploading your photos in seconds!</p>
+    </header>
+    <%- include('partials/head') %>
+    <div class="login-container">
+        <form action="/create-account" method="POST">
+            <div class= "container">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email"required>
+            </div>
+            <div class= "container">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"  required>
+            </div>
+            <div class= "container">
+                <label for="password">Confirm Password</label>
+                <input type="password" id="confirm-password"   required>
+                <button >Submit</button>
+            </div>
+        </form>
+    </div>
+    <%- include('partials/footer') %>
+</body>
+</html>

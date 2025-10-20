@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head') %>
+<body>
+  <%- include('partials/header') %>
+    <div class="main-container">
+        <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" id="imageInput" name="image" required>
+            <div id="previewContainer">
+                <img id="previewImage" src="" alt="Image preview" style="display:none; width:200px;">
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+    <%- include('partials/footer') %>
+</body>
+<script>
+  const imageInput = document.getElementById('imageInput');
+  const previewImage = document.getElementById('previewImage');
+
+  imageInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      previewImage.src = URL.createObjectURL(file);
+      previewImage.style.display = 'block';
+    }
+  });
+</script>
+</html>
