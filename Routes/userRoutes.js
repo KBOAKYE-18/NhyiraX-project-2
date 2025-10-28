@@ -18,8 +18,18 @@ router.get('/',(req,res)=>{
 });
 router.get('/signup',(req,res)=>{
     res.render('signup');
-})
+});
 
-router.post('/upload',upload.single('image'),fileController.upload_image);
+function onlyWhenLoggedIn(req, res, next) {
+    if (req.session && req.session.user) { 
+        // Call next handler
+        return next(); // Continue to the upload route
+    }
+
+    
+    return res.redirect('/'); 
+}
+
+router.post('/upload', onlyWhnLoggedIn,upload.single('image'),fileController.upload_image);
 
 module.exports = router;
