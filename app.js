@@ -1,8 +1,19 @@
 const express = require ('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
-const app  = express();
 const userRoutes = require ('./routes/userRoutes');
+const session = require("express-session");
+
+const app  = express();
+
+app.use(
+  session({
+    secret: "yourSecretKey",
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
 
 
 app.set('view engine','ejs');
