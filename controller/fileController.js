@@ -16,7 +16,7 @@ const upload_image = async (req,res)=>{
 
         await new_file.save();
         console.log("File uploaded successfully");
-        res.render('login');
+        res.render('index');
     }catch(err){
         console.log(err);
         res.status(500).send("Error inserting image into databse");

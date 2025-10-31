@@ -3,7 +3,6 @@ const fileController = require('../controller/fileController');
 const multer = require('multer');
 const express = require ('express');
 const router = express.Router();
-
 const storage =multer.memoryStorage();
 const upload = multer({
     storage:storage,
@@ -18,17 +17,17 @@ router.get('/',(req,res)=>{
 });
 router.get('/signup',(req,res)=>{
     res.render('signup');
-})
+});
 
-//Authentication Middleware
-function onlyWhenLoggedIn(req,res,next){
-    if(req.session && req.session.user){
-        return next();
+function onlyWhenLoggedIn(req, res, next) {
+    if (req.session && req.session.user) { 
+        // Call next handler
+        return next(); // Continue to the upload route
     }
 
-    return res.redirect('/');
+    return res.redirect('/'); 
 }
 
-router.post('/upload',onlyWhenLoggedIn,upload.single('image'),fileController.upload_image);
+router.post('/upload', onlyWhenLoggedIn,upload.single('image'),fileController.upload_image);
 
 module.exports = router;
