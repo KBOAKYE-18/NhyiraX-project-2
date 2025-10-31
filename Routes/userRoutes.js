@@ -20,6 +20,15 @@ router.get('/signup',(req,res)=>{
     res.render('signup');
 })
 
-router.post('/upload',upload.single('image'),fileController.upload_image);
+//Authentication Middleware
+function onlyWhenLoggedIn(req,res,next){
+    if(req.session && req.session.user){
+        return next();
+    }
+
+    return res.redirect('/');
+}
+
+router.post('/upload',onlyWhenLoggedIn,upload.single('image'),fileController.upload_image);
 
 module.exports = router;

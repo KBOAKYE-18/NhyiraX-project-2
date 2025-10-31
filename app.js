@@ -3,11 +3,23 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const app  = express();
 const userRoutes = require ('./routes/userRoutes');
+const session = require('express-session');
 
 
 app.set('view engine','ejs');
+
 app.use(express.urlencoded({ extended: true }));
+
 app.use(express.static('public'));
+
+app.use(session({
+    secret:"some secret key",
+    resave:false,
+    saveUninitialized:false,
+    cookie:{
+        maxAge:1000*60*60*1
+    }
+}))
 
 const dbURI = "mongodb+srv://user_kb:test1234@cluster0.9awrg0y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 mongoose.connect(dbURI)
